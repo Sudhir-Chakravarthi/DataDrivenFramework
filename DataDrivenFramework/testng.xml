@@ -5,6 +5,9 @@
     <classes>
       <class name="com.techm.testcases.LoginTest"/>
       <class name="com.techm.Base.TestBase"/>
+      
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+  </test> 
+  <!-- Test -->
+</suite> 
+<!-- Suite -->
