@@ -7,12 +7,16 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+
+import com.techm.utilities.ExcelReader;
 
 public class TestBase {
 
@@ -34,6 +38,7 @@ public class TestBase {
 	public static Properties OR  = new Properties();
 	public static FileInputStream fis ;
 	public static Logger log = Logger.getLogger("devpinoyLogger");
+	public static ExcelReader excel = new ExcelReader(System.getProperty("user.dir") + "\\src\\test\\resources\\excel\\excel.xlsx");
 	
 	//before we call any of the testcases at the begginf we need to execute this 
 	@BeforeSuite
@@ -104,13 +109,32 @@ public class TestBase {
 	
 	
 	
+	
+	public boolean isElementPresent(By by)
+	{
+		try {
+			driver.findElement(by);
+			return true;
+		}catch(NoSuchElementException e) {
+			return false;
+		}
+	}
+	
 	//after executing all things quitting things
 	//executed after all our testcases
 	@AfterSuite
 	public void tearDown()
 	{
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(driver!=null)
 		{
+			
 			driver.quit();
 		}
 		log.debug("TestExecution Successful");
